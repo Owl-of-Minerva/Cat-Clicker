@@ -36,23 +36,26 @@ var model = {
 
 var octopus = {
     init: function(){
-        
+        model.currentCat = model.cats[0];
+        catListView.init();
+        catView.init();
     },
     
     getCurrentCat: function(){
-        
+        return model.currentCat;
     },
     
     getCats: function(){
-        
+        return model.cats;
     },
     
     setCurrentCat: function (cat) {
-        
+        model.currentCat = cat;
     },
     
     incrementCounter: function () {
-        
+        model.currentCat.clickCount++;
+        catView.render();
     }
     
 };
@@ -60,21 +63,47 @@ var octopus = {
 
 var catView = {
     init: function () {
-        
+        this.cat = document.getElementById('cat');
+        this.catName = document.getElementById('cat-name');
+        this.catImg = document.getElementById('cat-img');
+        this.count = document.getElementById('cat-count');
+        this.catImg.addEventListener('click', function(){
+            octopus.incrementCounter();
+        })
+        this.render();
     },
     
     render: function () {
-        
+        var currentCat = octopus.getCurrentCat();
+        this.catName.textContent = currentCat.name;
+        this.catImg.src = currentCat.imgSrc;
+        this.count.textContent = currentCat.clickCount;
     }
 };
 
 var catListView = {
     init: function () {
-        
+        this.catList = document.getElementById('cat-list');
+        this.render();
     },
     
     render: function () {
-        
+        var cat;
+        var elem;
+        var cats = octopus.getCats();
+        this.catList.innerHTML = '';
+        for (var i = 0; i < cats.length; i++){
+            cat = cats[i];
+            elem = document.createElement('li');
+            elem.textContent = cat.name;
+            elem.addEventListener('click', (function(cat){
+                return function() {
+                    octopus.setCurrentCat(cat);
+                    catView.render();
+                }
+            })(cat));
+            this.catList.appendChild(elem);
+        }
     }
 }
 
