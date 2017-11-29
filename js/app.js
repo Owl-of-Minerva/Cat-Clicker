@@ -35,16 +35,47 @@ var model = {
 };
 
 var octopus = {
-
+    init: function(){
+        
+    },
+    
+    getCurrentCat: function(){
+        
+    },
+    
+    getCats: function(){
+        
+    },
+    
+    setCurrentCat: function (cat) {
+        
+    },
+    
+    incrementCounter: function () {
+        
+    }
+    
 };
 
 
 var catView = {
-
+    init: function () {
+        
+    },
+    
+    render: function () {
+        
+    }
 };
 
 var catListView = {
-
+    init: function () {
+        
+    },
+    
+    render: function () {
+        
+    }
 }
 
 octopus.init();
